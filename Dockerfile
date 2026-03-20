@@ -16,6 +16,7 @@ RUN pnpm approve-builds || true
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN mkdir -p drizzle extensions
 RUN pnpm build
 
 # Production
