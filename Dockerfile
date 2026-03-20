@@ -16,6 +16,8 @@ RUN pnpm approve-builds || true
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# Generate drizzle migrations before building
+RUN pnpm run db:generate || true
 RUN pnpm build
 
 # Production
@@ -33,8 +35,10 @@ COPY --from=builder /app/src/dashboard/main.js ./dist/dashboard/
 
 # Copy runtime directories
 COPY --from=builder /app/skills ./skills
-COPY --from=builder /app/extensions ./extensions
+# extensions dir may not exist - create it if needed
+RUN mkdir -p /app/extensions
 COPY --from=builder /app/.env.example ./.env.example
+# Copy drizzle migrations (generated during build)
 COPY --from=builder /app/drizzle ./drizzle
 
 # Create data and config directories
