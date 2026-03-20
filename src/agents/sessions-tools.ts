@@ -78,7 +78,7 @@ async function executeSessionsSpawn(
         });
 
         // Build the sub-agent prompt
-        const _subAgentPrompt = buildSubAgentPrompt({
+        buildSubAgentPrompt({
             parentAgentId: sourceAgentId,
             task: params.task,
             constraints: agentConfig.capabilities
