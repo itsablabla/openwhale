@@ -3,7 +3,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
 # Install build dependencies for native modules (better-sqlite3, node-llama-cpp)
-RUN apk add --no-cache python3 make g++ curl
+RUN apk add --no-cache python3 make g++ curl git
 
 # Install dependencies
 FROM base AS deps
