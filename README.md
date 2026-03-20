@@ -22,7 +22,7 @@
 </p>
 
 <p align="center">
-  <a href="https://railway.com/new/template?template=https://github.com/itsablabla/openwhale">
+  <a href="https://railway.com/deploy/Z0aFDq">
     <img src="https://railway.com/button.svg" alt="Deploy on Railway" height="44" />
   </a>
 </p>
@@ -45,7 +45,7 @@ Other AI assistants chat. OpenWhale **does**. It deploys autonomous agent swarms
 
 Deploy OpenWhale to the cloud in seconds — no local setup required:
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template?template=https://github.com/itsablabla/openwhale)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/Z0aFDq)
 
 After deploying, open your Railway URL + `/dashboard` → add your API keys → scan WhatsApp QR code.
 
