@@ -26,12 +26,14 @@ ENV NODE_ENV=production
 
 # Copy built output and dependencies
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/pnpm-lock.yaml ./
 
-# Re-install production deps to rebuild native modules for this environment
-RUN pnpm install --prod --frozen-lockfile || pnpm install --prod
-RUN pnpm approve-builds || true
+# Rebuild native modules for this specific Alpine/Node environment
+RUN cd /app/node_modules/.pnpm/better-sqlite3@12.8.0/node_modules/better-sqlite3 && \
+    npm rebuild better-sqlite3 --build-from-source || \
+    (npm install --ignore-scripts=false && node-pre-gyp install --fallback-to-build) || true
 
 # Copy dashboard static assets (CSS + JS served at runtime)
 COPY --from=builder /app/src/dashboard/style.css ./dist/dashboard/
