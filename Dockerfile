@@ -26,8 +26,12 @@ ENV NODE_ENV=production
 
 # Copy built output and dependencies
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
+COPY --from=builder /app/pnpm-lock.yaml ./
+
+# Re-install production deps to rebuild native modules for this environment
+RUN pnpm install --prod --frozen-lockfile || pnpm install --prod
+RUN pnpm approve-builds || true
 
 # Copy dashboard static assets (CSS + JS served at runtime)
 COPY --from=builder /app/src/dashboard/style.css ./dist/dashboard/
