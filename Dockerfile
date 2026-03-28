@@ -44,8 +44,6 @@ COPY --from=builder /app/skills ./skills
 # extensions dir may not exist - create it if needed
 RUN mkdir -p /app/extensions
 COPY --from=builder /app/.env.example ./.env.example
-# Copy drizzle migrations (generated during build)
-COPY --from=builder /app/drizzle ./drizzle
 
 # Create data and config directories
 RUN mkdir -p /app/data /app/config /app/.openwhale
